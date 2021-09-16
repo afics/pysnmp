@@ -63,7 +63,8 @@ class AbstractSocketTransport(asyncore.dispatcher, AbstractTransport):
         # socket and postpone transport registration at dispatcher
         # till AsyncoreDispatcher invokes registerSocket()
 
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # commented because on Linux this causes multiple processes to steal datagrams from each other when they bind to the same port
+        # sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.setblocking(0)
 
         self.set_socket(sock)
